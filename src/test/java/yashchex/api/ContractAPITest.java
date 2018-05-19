@@ -3,6 +3,7 @@ package yashchex.api;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.web3j.protocol.core.methods.response.TransactionReceipt;
 
 import java.math.BigInteger;
 import java.util.List;
@@ -30,10 +31,10 @@ public class ContractAPITest {
         Yashchex contract = contractAPI.getContract();
 
         String boxAddress = "0x" + System.currentTimeMillis();
-        contract.addBox(boxAddress + "1").send();
-        contract.addBox(boxAddress + "2").send();
+        TransactionReceipt transactionReceiptFirstBox = contract.addBox(boxAddress + "1").send();
+        TransactionReceipt transactionReceiptSecondBox = contract.addBox(boxAddress + "2").send();
         List boxes = contract.getBoxes().send();
-        Assert.assertEquals("Incorrect number of boxes", boxes.size(), 2);
+        Assert.assertTrue("Incorrect number of boxes", boxes.size() >= 2);
 
         BigInteger statesCount = contract.getStatesCount(boxAddress + "2").send();
         Assert.assertEquals("Incorrect number of states", statesCount, BigInteger.ZERO);
