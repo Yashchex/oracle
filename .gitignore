@@ -1,0 +1,6 @@
+.idea
+src/main/java/solidity-windows/
+src/main/java/web3j-3.4.0/
+src/main/resources/exec.bat
+src/test/resources/contract.secret.properties
+target/
