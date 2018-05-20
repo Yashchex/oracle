@@ -6,7 +6,6 @@ import org.web3j.crypto.Credentials;
 import org.web3j.crypto.WalletUtils;
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.http.HttpService;
-import org.web3j.tx.Contract;
 import ru.qatools.properties.PropertyLoader;
 import yashchex.config.OracleConfig;
 
@@ -35,10 +34,9 @@ public class ContractAPI {
     public Credentials getCredentials() {
         Credentials credentials = null;
         try {
-            credentials = WalletUtils.loadCredentials(
-                    config.walletPassword(),
-                    config.walletSource());
-            log.info("Credentials are loaded");
+            credentials = WalletUtils.loadCredentials(System.getProperty("walletPassword", ""),
+                    System.getProperty("walletSource", ""));
+                    log.info("Credentials are loaded");
         } catch (Exception e) {
             log.error(e.getMessage(), e);
         }
